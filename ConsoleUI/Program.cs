@@ -15,7 +15,7 @@ namespace ConsoleUI
 
             foreach (var car in carManager.GetAll())
             {
-                Console.WriteLine("Araç Adı  {0}  aracın  modeli  {1}  aracın günlük fiyatı  {2} TL'dir.", car.Description,car.ModelYear,car.DailyPrice);
+                Console.WriteLine("Araç Adı  {0}  aracın  modeli  {1}  aracın günlük fiyatı  {2} TL'dir.\n", car.Description,car.ModelYear,car.DailyPrice);
             }
         }
     }

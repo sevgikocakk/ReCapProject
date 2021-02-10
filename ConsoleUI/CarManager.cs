@@ -41,6 +41,11 @@ namespace Business.Concrete
             return _carDal.GetAll();
         }
 
+        internal IEnumerable<Car> GetAllByBrandId()
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Car> GetAllByBrandId(int id)
         {
             return _carDal.GetAll(c => c.BrandId == id);

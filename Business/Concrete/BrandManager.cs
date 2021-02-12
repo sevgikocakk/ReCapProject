@@ -18,7 +18,7 @@ namespace Business.Concrete
 
         public void Add(Brand brand)
         {
-            if (brand.BrandName.Length<2)
+            if (brand.BrandName.Length>2)
             {
                 _brandDal.Add(brand);
                 Console.WriteLine("Marka başarıyla eklendi.");

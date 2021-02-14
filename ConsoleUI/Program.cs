@@ -22,18 +22,7 @@ namespace ConsoleUI
             CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
 
 
-            var result = rentalManager.GetRentalDetails();
-            if (result.Success==true)
-            {
-                foreach (var rental in result.Data)
-                {
-                    Console.WriteLine(rental.CarName+" | "+rental.RentDate);
-                }
-            }
-            else
-            {
-                Console.WriteLine(Messages.FailedRental);
-            }
+           
 
 
 

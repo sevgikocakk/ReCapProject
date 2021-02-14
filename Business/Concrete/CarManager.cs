@@ -5,6 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using Core.Utilites.Results;
+using Business.Constants;
+using Entities.DTOs;
+using System.Linq.Expressions;
 
 namespace Business.Concrete
 {
@@ -18,55 +22,47 @@ namespace Business.Concrete
 
         }
 
-        public void Add(Car car)
+        public IResult Add(Car car)
         {
             if (car.DailyPrice > 0)
             {
-                Console.WriteLine("Araba başarıyla eklendi.");
+                _carDal.Add(car);
+                return new SuccessResult(Messages.AddedCar);
             }
-            else
-            {
-                Console.WriteLine("Araba günlük fiyatı 0'dan büyük olmalıdır.");
-            }
+            return new ErrorResult(Messages.FailedBrand);
         }
 
-        public void Delete(Car car)
+        public IResult Delete(Car car)
         {
             _carDal.Delete(car);
-            Console.WriteLine("Araba Başarıyla Silindi.");
+            return new SuccessResult(Messages.DeletedCar);
         }
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-            return _carDal.GetAll();
+            return  new SuccessDataResult<List<Car>>(_carDal.GetAll());
         }
 
-        public List<Car> GetAllByBrandId(int id)
+
+        public IDataResult<Car> GetById(int id)
         {
-            return _carDal.GetAll(c => c.BrandId == id);
+            return new SuccessDataResult<Car> (_carDal.Get(c=> c.Id == id));
         }
 
-        public List<Car> GetAllByColorId(int id)
+        public IDataResult<List<CarDetailDto>> GetCarDetails(Expression<Func<Car, bool>> filter = null)
         {
-            return _carDal.GetAll(c=> c.ColorId == id);
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(filter));
         }
 
-        public Car GetById(int id)
-        {
-            return _carDal.Get(c=> c.Id == id);
-        }
-
-        public void Update(Car car)
+        public IResult Update(Car car)
         {
             if (car.DailyPrice <0)
             {
                 _carDal.Update(car);
-                Console.WriteLine("Araba bilgileri güncellendi.");
+                return new SuccessResult(Messages.UpdatedCar);
             }
-            else
-            {
-                Console.WriteLine("Geçerli fiyat bilgisi giriniz.");
-            }
+
+            return new ErrorResult(Messages.FailedCar);
             
         }
     }
